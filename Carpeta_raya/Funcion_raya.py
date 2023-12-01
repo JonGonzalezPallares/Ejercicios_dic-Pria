@@ -2,6 +2,7 @@ import os
 import time
 import random
 import numpy as np
+import Carpeta_raya.Tres_en_raya as tresRaya
 
 clear = lambda: os.system('clear')
 clear()
@@ -68,6 +69,7 @@ class Jugar:
                         val = input("¿Quieres jugar otra partida?\n")
                         if(val.lower()=="si"):
                             self.victorias1 = self.victorias1+1
+                            tresRaya.inicio
                         exit()
             elif(valor1.lower() == "tablas"):
                 print("Tablas solicitadas...")
