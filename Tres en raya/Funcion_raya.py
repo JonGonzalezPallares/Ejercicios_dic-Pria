@@ -8,6 +8,9 @@ clear()
 
 class Jugar:
     def __init__(self):
+        self.victorias1 = 0
+        self.victorias2 = 0
+        self.grafico = 0
         pass
 
     def partidaPersona(self, graficoP):
@@ -61,7 +64,10 @@ class Jugar:
                     print("",graficoP[6],"|",graficoP[7],"|",graficoP[8],"")
                     victoria = Jugar.victoria(graficoP, ficha=pieza1)
                     if(victoria=="Victoria"):
-                        print("El jugador 1 ha ganado")
+                        print("El jugador 1 ha ganado, despues de ",turnos+1," turnos")
+                        val = input("¿Quieres jugar otra partida?\n")
+                        if(val.lower()=="si"):
+                            self.victorias1 = self.victorias1+1
                         exit()
             elif(valor1.lower() == "tablas"):
                 print("Tablas solicitadas...")
@@ -117,7 +123,8 @@ class Jugar:
                     print("",graficoP[6],"|",graficoP[7],"|",graficoP[8],"")
                     victoria = Jugar.victoria(graficoP, ficha=pieza2)
                     if(victoria=="Victoria"):
-                        print("El jugador 2 ha ganado")
+                        print("El jugador 2 ha ganado, despues de ",turnos+1," turnos")
+                        self.victorias2 = self.victorias2+1
                         exit()
             elif(valor1.lower() == "tablas"):
                 print("Tablas solicitadas...")
@@ -250,10 +257,10 @@ class Jugar:
                         victoria = Jugar.victoria(graficoP, ficha="0")
                         turnos+=1
                         if(victoria=="Victoria"):
-                            print("Has perdido")
+                            print("Has perdido, despues de ",turnos+1," turnos")
                             break
                     else:
-                        print("Has ganado")
+                        print("Has ganado, despues de ",turnos+1," turnos")
                         break
             elif(valorC.lower() == "tablas"):
                 print("Tablas solicitadas...")
