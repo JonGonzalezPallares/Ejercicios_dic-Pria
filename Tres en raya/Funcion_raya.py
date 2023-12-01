@@ -44,7 +44,7 @@ class Jugar:
                 if(valorCam>9 or valorCam<1):
                     print("No puedes salirte del cuadrado")
                 elif(graficoP[valor1Int]=="X" or graficoP[valor1Int]=="0"):
-                    print("Vuelve")
+                    print("Selecciona un espacio vacio")
                     time.sleep(1)
                     clear()
                 else:
@@ -100,7 +100,7 @@ class Jugar:
                 if(valorCam>9 or valorCam<1):
                     print("No puedes salirte del cuadrado")
                 elif(graficoP[valor2Int]=="X" or graficoP[valor2Int]=="0"):
-                    print("Vuelve")
+                    print("Selecciona un espacio vacio")
                     time.sleep(1)
                     clear()
                 else:
@@ -211,7 +211,7 @@ class Jugar:
                 if(valorCam>9 or valorCam<1):
                     print("No puedes salirte del cuadrado")
                 elif(graficoP[valorCInt]=="X" or graficoP[valorCInt]=="0"):
-                    print("Vuelve")
+                    print("Selecciona un espacio vacio")
                     time.sleep(1)
                     clear()
                 else:
