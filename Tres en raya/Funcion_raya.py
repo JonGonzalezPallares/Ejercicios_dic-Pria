@@ -21,16 +21,35 @@ class Jugar:
         print("")
         print("",graficoP[6],"|",graficoP[7],"|",graficoP[8],"")
         turnos = 0
+        correcto = True
+        pieza1 = ""
+        pieza2 = ""
+        while correcto:
+            pieza = input("Pieza del primer jugador: X o 0\n")
+            if(pieza=="X" or pieza=="0"):
+                pieza1 = pieza
+                if(pieza=="X"):
+                    pieza2 = "0"
+                else:
+                    pieza2 = "X"
+                correcto=False
+            else:
+                print("Pieza incorrecta")
         while turnos<9:
             valor1 = input("Selecciona la posicion del jugador 1:\n")
             if(valor1.isnumeric()):
                 valor1Int = int(valor1)
-                if(valor1Int>9):
+                valorCam = valor1Int
+                valor1Int = Jugar.cambio(valor1Int)
+                if(valorCam>9 or valorCam<1):
                     print("No puedes salirte del cuadrado")
+                elif(graficoP[valor1Int]=="X" or graficoP[valor1Int]=="0"):
+                    print("Vuelve")
+                    time.sleep(1)
+                    clear()
                 else:
-                    valor1Int = Jugar.cambio(valor1Int)
                     graficoP[valor1Int] = "a"
-                    graficoP[np.where(graficoP=="a")[0]] = "X"
+                    graficoP[np.where(graficoP=="a")[0]] = pieza1
                     time.sleep(1)
                     clear()
                     print("",graficoP[0],"|",graficoP[1],"|",graficoP[2],"")
@@ -40,7 +59,7 @@ class Jugar:
                     print("___________")
                     print("")
                     print("",graficoP[6],"|",graficoP[7],"|",graficoP[8],"")
-                    victoria = Jugar.victoria(graficoP, ficha="X")
+                    victoria = Jugar.victoria(graficoP, ficha=pieza1)
                     if(victoria=="Victoria"):
                         print("El jugador 1 ha ganado")
                         exit()
@@ -76,12 +95,17 @@ class Jugar:
             valor2 = input("Selecciona la posicion del jugador 2:\n")
             if(valor2.isnumeric()):
                 valor2Int = int(valor2)
-                if(valor2Int>9):
+                valorCam = valor2Int
+                valor2Int = Jugar.cambio(valor2Int)
+                if(valorCam>9 or valorCam<1):
                     print("No puedes salirte del cuadrado")
+                elif(graficoP[valor2Int]=="X" or graficoP[valor2Int]=="0"):
+                    print("Vuelve")
+                    time.sleep(1)
+                    clear()
                 else:
-                    valor2Int = Jugar.cambio(valor2Int)
                     graficoP[valor2Int] = "a"
-                    graficoP[np.where(graficoP=="a")[0]] = "0"
+                    graficoP[np.where(graficoP=="a")[0]] = pieza2
                     time.sleep(1)
                     clear()
                     print("",graficoP[0],"|",graficoP[1],"|",graficoP[2],"")
@@ -91,7 +115,7 @@ class Jugar:
                     print("___________")
                     print("")
                     print("",graficoP[6],"|",graficoP[7],"|",graficoP[8],"")
-                    victoria = Jugar.victoria(graficoP, ficha="0")
+                    victoria = Jugar.victoria(graficoP, ficha=pieza2)
                     if(victoria=="Victoria"):
                         print("El jugador 2 ha ganado")
                         exit()
