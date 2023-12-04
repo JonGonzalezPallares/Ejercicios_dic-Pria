@@ -1,15 +1,13 @@
 import os
 import time
 import numpy as np
-import Carpeta_raya.Funcion_raya as fr
+import Funcion_raya as funR
 
 clear = lambda: os.system('clear')
 clear()
 
-partida = fr.Jugar()
 class inicio:
     def iniciar():
-        esquema = np.array(["-","-","-","-","-","-","-","-","-"])
         posibilidad = ["si", "true", "verdad", "vamos", "ok"]
 
         jugar = input("¿Quieres jugar al 3 en raya?\n")
@@ -20,10 +18,10 @@ class inicio:
                 clear()
                 jugar = input("¿Contra maquina o persona?\n")
                 if(jugar.lower() == "maquina"):
-                    partida.partidaMaquina(graficoP=esquema)
+                    funR.Jugar().partidaMaquina()
                     continuar=False
                 elif(jugar.lower() == "persona"):
-                    partida.partidaPersona(graficoP=esquema)
+                    funR.Jugar().partidaPersona()
                     continuar=False
                 elif(jugar.lower() == "salir"):
                     print("Adios")
