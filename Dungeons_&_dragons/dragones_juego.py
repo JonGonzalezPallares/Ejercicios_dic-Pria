@@ -18,3 +18,6 @@ clear()
 #Dibujamos el mapa
 dm.MapGrid.draw_grid(dm.MapGrid)
 dm.MapGrid.get_walls(dm.MapGrid)
+
+#Para moverse por el mapa
+dm.MapGrid.move_player(dm.MapGrid)
