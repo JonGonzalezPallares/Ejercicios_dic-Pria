@@ -8,6 +8,7 @@ clear()
 #Pasamos el alto y ancho de la mazmorra
 dm.MapGrid.heigth = int(input('Alto de la mazmorra: '))
 dm.MapGrid.width = int(input('Ancho de la mazmorra: '))
+dm.MapGrid.dificil = input('Selecciona la dificultad (1, 2, 3): ')
 
 #Mensaje de creacion
 clear()
