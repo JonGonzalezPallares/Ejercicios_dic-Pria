@@ -57,7 +57,7 @@ class MapGrid:
             self.grafico[alto][ancho] = "#"
         #Colocamos al jugador y el final de la mazmorra
         self.grafico[0][0]="$"
-        self.grafico[self.heigth-1][self.width-1]=">"
+        self.grafico[self.heigth-1][self.width-1]="🐉"
 
         #Para printar el grafico
         for alto in range(self.heigth):
@@ -67,6 +67,8 @@ class MapGrid:
                     print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
                 elif(self.grafico[alto][ancho]=="#"):
                     print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                elif(self.grafico[alto][ancho]=="🐉"):
+                    print(f"{Fore.RED}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
                 else:
                     print(self.grafico[alto][ancho], end=" ")
         print("\n")
@@ -74,26 +76,67 @@ class MapGrid:
     #Funcion para mover al dragon
     def dragonMov(self):
         movimiento = rd.randint(1,4)
-        print(movimiento)
+        pos = [0,0]
         posible = True
         while posible:
             if(movimiento==1):
-                movimiento = [self.dragon[0]-1, self.dragon[1]]
+                pos = [self.dragon[0]-1, self.dragon[1]]
             elif(movimiento==2):
-                movimiento = [self.dragon[0], self.dragon[1]-1]
+                pos = [self.dragon[0], self.dragon[1]-1]
             elif(movimiento==3):
-                movimiento = [self.dragon[0]+1, self.dragon[1]]
-            elif(movimiento==4):
-                movimiento = [self.dragon[0], self.dragon[1]+1]
-            
-            if(movimiento[0])
-        print(self.dragon)
+                pos = [self.dragon[0]+1, self.dragon[1]]
+            else:
+                pos = [self.dragon[0], self.dragon[1]+1]
+
+            if(pos[0]<self.heigth and pos[1]<self.width and pos[0]>-1 and pos[1]>-1 and self.grafico[pos[0]][pos[1]]!="#"):
+                self.grafico[self.dragon[0]][self.dragon[1]] = "."
+                self.grafico[self.heigth-1][self.width-1] = ">"
+                self.grafico[0][0] = "<"
+                self.dragon[0] = pos[0]
+                self.dragon[1] = pos[1]
+                posible = False
+                if(self.grafico[pos[0]][pos[1]]=="$"):
+                    self.grafico[self.dragon[0]][self.dragon[1]] = "🐉"
+                    #Para printar el grafico
+                    clear()
+                    for alto in range(self.heigth):
+                        print("\n")
+                        for ancho in range(self.width):
+                            if(self.grafico[alto][ancho]=="$"):
+                                print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                            elif(self.grafico[alto][ancho]=="#"):
+                                print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                            elif(self.grafico[alto][ancho]=="🐉"):
+                                print(f"{Fore.RED}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                            else:
+                                print(self.grafico[alto][ancho], end=" ")
+                    print("\n")
+                    print("Has muerto")
+                    exit()
+                else:
+                    self.grafico[self.dragon[0]][self.dragon[1]] = "🐉"
+                    #Para printar el grafico
+                    clear()
+                    for alto in range(self.heigth):
+                        print("\n")
+                        for ancho in range(self.width):
+                            if(self.grafico[alto][ancho]=="$"):
+                                print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                            elif(self.grafico[alto][ancho]=="#"):
+                                print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                            elif(self.grafico[alto][ancho]=="🐉"):
+                                print(f"{Fore.RED}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                            else:
+                                print(self.grafico[alto][ancho], end=" ")
+                    print("\n")
+            else:
+                movimiento = rd.randint(1,4)
            
 
     #Funcion para mover al personaje
     def move_player(self):
         #El primero es el movimiento hacia abajo/arriba, el segundo hacia la derecha e izquierda
-        self.dragon = [self.heigth, self.width]
+        self.dragon = [self.heigth-1, self.width-1]
         inicio = [0,0]
         movimiento = True
         while movimiento:
@@ -101,7 +144,7 @@ class MapGrid:
 
             #Si hemos pulsado para ir a la derecha
             if(casilla.lower() == "d"):
-                if(inicio[1]+1!=self.width and self.grafico[inicio[0]][inicio[1]+1]!="#"):
+                if(inicio[1]+1<self.width and self.grafico[inicio[0]][inicio[1]+1]!="#"):
                     if(self.grafico[inicio[0]][inicio[1]+1] == ">"):
                         clear()
                         #Para printar el grafico
@@ -121,35 +164,13 @@ class MapGrid:
                         exit()
                     elif(self.grafico[inicio[0]][inicio[1]+1]=="#"):
                         clear()
-                        #Para printar el grafico
-                        for alto in range(self.heigth):
-                            print("\n")
-                            for ancho in range(self.width):
-                                if(self.grafico[alto][ancho]=="$"):
-                                    print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
-                                elif(self.grafico[alto][ancho]=="#"):
-                                    print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
-                                else:
-                                    print(self.grafico[alto][ancho], end=" ")
-                        print("\n")
+                        self.dragonMov(self)
                         print("Hay un muro")
                     else:
                         self.grafico[inicio[0]][inicio[1]] = "."
                         self.grafico[0][0] = "<"
                         inicio[1] = inicio[1]+1
                         self.grafico[inicio[0]][inicio[1]] = "$"
-                        clear()
-                        #Para printar el grafico
-                        for alto in range(self.heigth):
-                            print("\n")
-                            for ancho in range(self.width):
-                                if(self.grafico[alto][ancho]=="$"):
-                                    print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
-                                elif(self.grafico[alto][ancho]=="#"):
-                                    print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
-                                else:
-                                    print(self.grafico[alto][ancho], end=" ")
-                        print("\n")
                         self.dragonMov(self)
                 else:
                     clear()
@@ -161,6 +182,8 @@ class MapGrid:
                                 print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
                             elif(self.grafico[alto][ancho]=="#"):
                                 print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                            elif(self.grafico[alto][ancho]=="🐉"):
+                                print(f"{Fore.RED}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
                             else:
                                 print(self.grafico[alto][ancho], end=" ")
                     print("\n")
@@ -172,31 +195,10 @@ class MapGrid:
                     self.grafico[inicio[0]][inicio[1]] = "."
                     inicio[1] = inicio[1]-1
                     self.grafico[inicio[0]][inicio[1]] = "$"
-                    clear()
-                    #Para printar el grafico
-                    for alto in range(self.heigth):
-                        print("\n")
-                        for ancho in range(self.width):
-                            if(self.grafico[alto][ancho]=="$"):
-                                print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
-                            elif(self.grafico[alto][ancho]=="#"):
-                                print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
-                            else:
-                                print(self.grafico[alto][ancho], end=" ")
-                    print("\n")
+                    self.dragonMov(self)
                 elif(self.grafico[inicio[0]][inicio[1]-1]=="#"):
                     clear()
-                    #Para printar el grafico
-                    for alto in range(self.heigth):
-                        print("\n")
-                        for ancho in range(self.width):
-                            if(self.grafico[alto][ancho]=="$"):
-                                print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
-                            elif(self.grafico[alto][ancho]=="#"):
-                                print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
-                            else:
-                                print(self.grafico[alto][ancho], end=" ")
-                    print("\n")
+                    self.dragonMov(self)
                     print("Hay un muro")
                 else:
                     clear()
@@ -208,6 +210,8 @@ class MapGrid:
                                 print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
                             elif(self.grafico[alto][ancho]=="#"):
                                 print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                            elif(self.grafico[alto][ancho]=="🐉"):
+                                print(f"{Fore.RED}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
                             else:
                                 print(self.grafico[alto][ancho], end=" ")
                     print("\n")
@@ -220,30 +224,10 @@ class MapGrid:
                     inicio[0] = inicio[0]-1
                     self.grafico[inicio[0]][inicio[1]] = "$"
                     clear()
-                    #Para printar el grafico
-                    for alto in range(self.heigth):
-                        print("\n")
-                        for ancho in range(self.width):
-                            if(self.grafico[alto][ancho]=="$"):
-                                print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
-                            elif(self.grafico[alto][ancho]=="#"):
-                                print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
-                            else:
-                                print(self.grafico[alto][ancho], end=" ")
-                    print("\n")
+                    self.dragonMov(self)
                 elif(self.grafico[inicio[0]-1][inicio[1]]=="#"):
                     clear()
-                    #Para printar el grafico
-                    for alto in range(self.heigth):
-                        print("\n")
-                        for ancho in range(self.width):
-                            if(self.grafico[alto][ancho]=="$"):
-                                print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
-                            elif(self.grafico[alto][ancho]=="#"):
-                                print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
-                            else:
-                                print(self.grafico[alto][ancho], end=" ")
-                    print("\n")
+                    self.dragonMov(self)
                     print("Hay un muro")
                 else:
                     clear()
@@ -255,6 +239,8 @@ class MapGrid:
                                 print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
                             elif(self.grafico[alto][ancho]=="#"):
                                 print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                            elif(self.grafico[alto][ancho]=="🐉"):
+                                print(f"{Fore.RED}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
                             else:
                                 print(self.grafico[alto][ancho], end=" ")
                     print("\n")
@@ -262,7 +248,7 @@ class MapGrid:
 
             #Si hemos pulsado para ir abajo            
             elif(casilla.lower() == "s"):
-                if(inicio[0]+1!=self.heigth and self.grafico[inicio[0]+1][inicio[1]]!="#"):
+                if(inicio[0]+1<self.heigth and self.grafico[inicio[0]+1][inicio[1]]!="#"):
                     if(self.grafico[inicio[0]+1][inicio[1]] == ">"):
                         clear()
                         #Para printar el grafico
@@ -275,6 +261,8 @@ class MapGrid:
                                     print(f"{Fore.GREEN}${Style.RESET_ALL}", end=" ")
                                 elif(self.grafico[alto][ancho]=="#"):
                                     print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                                elif(self.grafico[alto][ancho]=="🐉"):
+                                    print(f"{Fore.RED}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
                                 else:
                                     print(self.grafico[alto][ancho], end=" ")
                         print("\n")  
@@ -282,17 +270,7 @@ class MapGrid:
                         exit()
                     elif(self.grafico[inicio[0]+1][inicio[1]]=="#"):
                         clear()
-                        #Para printar el grafico
-                        for alto in range(self.heigth):
-                            print("\n")
-                            for ancho in range(self.width):
-                                if(self.grafico[alto][ancho]=="$"):
-                                    print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
-                                elif(self.grafico[alto][ancho]=="#"):
-                                    print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
-                                else:
-                                    print(self.grafico[alto][ancho], end=" ")
-                        print("\n")
+                        self.dragonMov(self)
                         print("Hay un muro")
                     else:
                         self.grafico[inicio[0]][inicio[1]] = "."
@@ -300,18 +278,7 @@ class MapGrid:
                         inicio[0] = inicio[0]+1
                         self.grafico[inicio[0]][inicio[1]] = "$"
                         clear()
-                        #Para printar el grafico
-                        for alto in range(self.heigth):
-                            print("\n")
-                            for ancho in range(self.width):
-                                if(self.grafico[alto][ancho]=="$"):
-                                    print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
-                                elif(self.grafico[alto][ancho]=="#"):
-                                    print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
-                                else:
-                                    print(self.grafico[alto][ancho], end=" ")
-                        print("\n")  
-
+                        self.dragonMov(self)
                 else:
                     clear()
                     #Para printar el grafico
@@ -322,6 +289,8 @@ class MapGrid:
                                 print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
                             elif(self.grafico[alto][ancho]=="#"):
                                 print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                            elif(self.grafico[alto][ancho]=="🐉"):
+                                print(f"{Fore.RED}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
                             else:
                                 print(self.grafico[alto][ancho], end=" ")
                     print("\n")
@@ -342,6 +311,8 @@ class MapGrid:
                             print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
                         elif(self.grafico[alto][ancho]=="#"):
                             print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                        elif(self.grafico[alto][ancho]=="🐉"):
+                            print(f"{Fore.RED}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
                         else:
                             print(self.grafico[alto][ancho], end=" ")
                 print("\n")  
