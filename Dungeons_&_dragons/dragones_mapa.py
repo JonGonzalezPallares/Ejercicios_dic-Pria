@@ -39,7 +39,7 @@ class MapGrid:
                 ancho = rd.randint(0, self.width-2)
                 alto = rd.randint(1, self.heigth-1)
                 ar = [alto, ancho]
-                #Si los numeros aleatorios no son ni el inicio ni el final
+                #Si los numeros aleatorios no son ni el inicio, ni el final, ni las casillas adyacentes del final
                 if(ar != [0,0] and ar != [self.width-1, self.heigth-1] and ar != [self.width-2, self.heigth-1] and ar != [self.width-1, self.heigth-2]):
                     #Contador para saber si la posicion del random no esta en el array
                     for paso2 in range(len(numerosRan)):
@@ -54,6 +54,32 @@ class MapGrid:
                         prob=True
                     
             self.grafico[alto][ancho] = "🧱 "
+
+        numerosRan = [[]]*4
+        if(self.dificil == "3"):
+            for paso in range(4):
+                prob = True
+                while prob:
+                    dif = 0
+                    ancho = rd.randint(0, self.width-2)
+                    alto = rd.randint(1, self.heigth-1)
+                    ar = [alto, ancho]
+                    #Si los numeros aleatorios no son ni el inicio, ni el final, ni las casillas adyacentes del final
+                    if(ar != [0,0] and ar != [self.width-1, self.heigth-1] and ar != [self.width-2, self.heigth-1] and ar != [self.width-1, self.heigth-2]):
+                        #Contador para saber si la posicion del random no esta en el array
+                        for paso2 in range(len(numerosRan)):
+                            if(numerosRan[paso2] != ar):
+                                dif = dif + 1
+
+                        #Si no esta en el array lo introduce, si no, vuelve a generar otra posicion
+                        if(dif==len(numerosRan)):
+                            numerosRan[paso] = ar
+                            prob=False
+                        else:
+                            prob=True
+                        
+                self.grafico[alto][ancho] = "🔥 "
+
         #Colocamos al jugador y el final de la mazmorra
         self.grafico[0][0]="🧙 "
         self.grafico[self.heigth-2][self.width-1]="🐉 "
@@ -64,11 +90,11 @@ class MapGrid:
             print("\n")
             for ancho in range(self.width):
                 if(self.grafico[alto][ancho]=="🧙 "):
-                    print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                    print(f"{self.grafico[alto][ancho]}", end=" ")
                 elif(self.grafico[alto][ancho]=="🧱 "):
-                    print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                    print(f"{self.grafico[alto][ancho]}", end=" ")
                 elif(self.grafico[alto][ancho]=="🐉 "):
-                    print(f"{Fore.RED}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                    print(f"{self.grafico[alto][ancho]}", end=" ")
                 else:
                     print(self.grafico[alto][ancho], end=" ")
         print("\n")
@@ -108,11 +134,11 @@ class MapGrid:
                         print("\n")
                         for ancho in range(self.width):
                             if(self.grafico[alto][ancho]=="🧙 "):
-                                print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                                print(f"{self.grafico[alto][ancho]}", end=" ")
                             elif(self.grafico[alto][ancho]=="🧱 "):
-                                print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                                print(f"{self.grafico[alto][ancho]}", end=" ")
                             elif(self.grafico[alto][ancho]=="🐉 "):
-                                print(f"{Fore.RED}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                                print(f"{self.grafico[alto][ancho]}", end=" ")
                             else:
                                 print(self.grafico[alto][ancho], end=" ")
                     print("\n")
@@ -126,11 +152,11 @@ class MapGrid:
                         print("\n")
                         for ancho in range(self.width):
                             if(self.grafico[alto][ancho]=="🧙 "):
-                                print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                                print(f"{self.grafico[alto][ancho]}", end=" ")
                             elif(self.grafico[alto][ancho]=="🧱 "):
-                                print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                                print(f"{self.grafico[alto][ancho]}", end=" ")
                             elif(self.grafico[alto][ancho]=="🐉 "):
-                                print(f"{Fore.RED}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                                print(f"{self.grafico[alto][ancho]}", end=" ")
                             else:
                                 print(self.grafico[alto][ancho], end=" ")
                     print("\n")
@@ -146,11 +172,11 @@ class MapGrid:
                         print("\n")
                         for ancho in range(self.width):
                             if(self.grafico[alto][ancho]=="🧙 "):
-                                print(f"{Fore.GREEN}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                                print(f"{self.grafico[alto][ancho]}", end=" ")
                             elif(self.grafico[alto][ancho]=="🧱 "):
-                                print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                                print(f"{self.grafico[alto][ancho]}", end=" ")
                             elif(self.grafico[alto][ancho]=="🐉 "):
-                                print(f"{Fore.RED}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                                print(f"{self.grafico[alto][ancho]}", end=" ")
                             else:
                                 print(self.grafico[alto][ancho], end=" ")
                     print("\n")
@@ -181,9 +207,9 @@ class MapGrid:
                                 if(self.grafico[alto][ancho]=="🧙 "):
                                     print(".  ", end=" ")
                                 elif(self.grafico[alto][ancho]=="👸 "):
-                                    print(f"🎆", end=" ")
+                                    print("🎆", end=" ")
                                 elif(self.grafico[alto][ancho]=="🧱 "):
-                                    print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                                    print(f"{self.grafico[alto][ancho]}", end=" ")
                                 else:
                                     print(self.grafico[alto][ancho], end=" ")
                         print("\n")  
@@ -253,13 +279,11 @@ class MapGrid:
                             print("\n")
                             for ancho in range(self.width):
                                 if(self.grafico[alto][ancho]=="🧙 "):
-                                    print(".  ", end=" ")
-                                elif(self.grafico[alto][ancho]=="👸 "):
-                                    print(f"{Fore.GREEN}${Style.RESET_ALL}", end=" ")
+                                    print(f"{self.grafico[alto][ancho]}", end=" ")
                                 elif(self.grafico[alto][ancho]=="🧱 "):
-                                    print(f"{Fore.BLUE}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                                    print(f"{self.grafico[alto][ancho]}", end=" ")
                                 elif(self.grafico[alto][ancho]=="🐉 "):
-                                    print(f"{Fore.RED}{self.grafico[alto][ancho]}{Style.RESET_ALL}", end=" ")
+                                    print(f"{self.grafico[alto][ancho]}", end=" ")
                                 else:
                                     print(self.grafico[alto][ancho], end=" ")
                         print("\n")  
