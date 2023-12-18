@@ -52,8 +52,6 @@ class MapGrid:
                     if(dif==len(numerosRan)):
                         numerosRan[paso] = ar
                         prob=False
-                    else:
-                        prob=True
                     
             #Añadimos el emoji de muro en las posiciones
             self.grafico[alto][ancho] = "🧱 "
