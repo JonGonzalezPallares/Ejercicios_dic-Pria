@@ -218,6 +218,24 @@ class MapGrid:
                     elif(self.grafico[inicio[0]][inicio[1]+1]=="🧱 "):
                         self.dragonMov(self)
                         print("Hay un muro")
+                    elif(self.grafico[inicio[0]][inicio[1]+1]=="🔥 "):
+                        self.grafico[inicio[0]][inicio[1]] = ".  "
+                        self.grafico[0][0] = "🏰 "
+                        clear()
+                        #Para printar el grafico
+                        for alto in range(self.heigth):
+                            print("\n")
+                            for ancho in range(self.width):
+                                if(self.grafico[alto][ancho]=="🧙 "):
+                                    print(".  ", end=" ")
+                                elif(self.grafico[alto][ancho]=="👸 "):
+                                    print("🎆", end=" ")
+                                elif(self.grafico[alto][ancho]=="🧱 "):
+                                    print(f"{self.grafico[alto][ancho]}", end=" ")
+                                else:
+                                    print(self.grafico[alto][ancho], end=" ")
+                        print("\nHas muerto quemado")
+                        exit()
                     else:
                         self.grafico[inicio[0]][inicio[1]] = ".  "
                         self.grafico[0][0] = "🏰 "
@@ -240,6 +258,24 @@ class MapGrid:
                     clear()
                     self.dragonMov(self)
                     print("Hay un muro")
+                elif(self.grafico[inicio[0]][inicio[1]-1]=="🔥 "):
+                    self.grafico[inicio[0]][inicio[1]] = ".  "
+                    self.grafico[0][0] = "🏰 "
+                    clear()
+                    #Para printar el grafico
+                    for alto in range(self.heigth):
+                        print("\n")
+                        for ancho in range(self.width):
+                            if(self.grafico[alto][ancho]=="🧙 "):
+                                print(".  ", end=" ")
+                            elif(self.grafico[alto][ancho]=="👸 "):
+                                print("🎆", end=" ")
+                            elif(self.grafico[alto][ancho]=="🧱 "):
+                                print(f"{self.grafico[alto][ancho]}", end=" ")
+                            else:
+                                print(self.grafico[alto][ancho], end=" ")
+                    print("\nHas muerto quemado")
+                    exit()
                 elif(inicio[0]==1 and inicio[1]==0):
                     self.grafico[inicio[0]][inicio[1]] = ".  "
                     inicio[0] = inicio[0]-1
@@ -260,6 +296,24 @@ class MapGrid:
                     clear()
                     self.dragonMov(self)
                     print("Hay un muro")
+                elif(self.grafico[inicio[0]-1][inicio[1]]=="🔥 "):
+                    self.grafico[inicio[0]][inicio[1]] = ".  "
+                    self.grafico[0][0] = "🏰 "
+                    clear()
+                    #Para printar el grafico
+                    for alto in range(self.heigth):
+                        print("\n")
+                        for ancho in range(self.width):
+                            if(self.grafico[alto][ancho]=="🧙 "):
+                                print(".  ", end=" ")
+                            elif(self.grafico[alto][ancho]=="👸 "):
+                                print("🎆", end=" ")
+                            elif(self.grafico[alto][ancho]=="🧱 "):
+                                print(f"{self.grafico[alto][ancho]}", end=" ")
+                            else:
+                                print(self.grafico[alto][ancho], end=" ")
+                    print("\nHas muerto quemado")
+                    exit()
                 elif(inicio[0]==1 and inicio[1]==0):
                     self.grafico[inicio[0]][inicio[1]] = ".  "
                     inicio[0] = inicio[0]-1
@@ -293,6 +347,24 @@ class MapGrid:
                         clear()
                         self.dragonMov(self)
                         print("Hay un muro")
+                    elif(self.grafico[inicio[0]+1][inicio[1]]=="🔥 "):
+                        self.grafico[inicio[0]][inicio[1]] = ".  "
+                        self.grafico[0][0] = "🏰 "
+                        clear()
+                        #Para printar el grafico
+                        for alto in range(self.heigth):
+                            print("\n")
+                            for ancho in range(self.width):
+                                if(self.grafico[alto][ancho]=="🧙 "):
+                                    print(".  ", end=" ")
+                                elif(self.grafico[alto][ancho]=="👸 "):
+                                    print("🎆", end=" ")
+                                elif(self.grafico[alto][ancho]=="🧱 "):
+                                    print(f"{self.grafico[alto][ancho]}", end=" ")
+                                else:
+                                    print(self.grafico[alto][ancho], end=" ")
+                        print("\nHas muerto quemado")
+                        exit()
                     else:
                         self.grafico[inicio[0]][inicio[1]] = ".  "
                         self.grafico[0][0] = "🏰 "
