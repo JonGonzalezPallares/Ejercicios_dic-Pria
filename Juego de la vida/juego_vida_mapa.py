@@ -9,12 +9,14 @@ class LifeGame:
         self.width = 20
         self.heigth = 20
         self.grafico = 0
+        self.antiguo = 0
 
     #Funcion para generar el grafico
     def dib_grafico(self):
         self.grafico = np.full((self.heigth, self.width), fill_value="🟥 ")
+        self.antiguo = np.full((self.heigth, self.width), fill_value=". ")
 
-    #Funcion para dibujar el esquema
+    #Funcion para recoguer las vivas
     def get_vivas(self):
         #Para saber cuantas casillas vivas va a haber 
         vivx = round(((self.width)*(self.heigth))/4)
@@ -43,37 +45,57 @@ class LifeGame:
             #Añadimos el emoji de muro en las posiciones
             self.grafico[alto][ancho] = "🟩 "
 
-        #Para printar el grafico
-        for alto in range(self.heigth):
+    #Funcion para dibujar el grafico
+    def pintar(self):
+        if((self.antiguo==self.grafico).all()):
+            #Para printar el grafico
+            for alto in range(self.heigth):
+                print("\n")
+                for ancho in range(self.width):
+                    if(self.grafico[alto][ancho]=="🟩 "):
+                        print(f"{self.grafico[alto][ancho]}", end=" ")
+                    elif(self.grafico[alto][ancho]=="🟥 "):
+                        print(f"{self.grafico[alto][ancho]}", end=" ")
+                    else:
+                        print(self.grafico[alto][ancho], end=" ")
             print("\n")
-            for ancho in range(self.width):
-                if(self.grafico[alto][ancho]=="🟩 "):
-                    print(f"{self.grafico[alto][ancho]}", end=" ")
-                else:
-                    print(self.grafico[alto][ancho], end=" ")
-        print("\n")
+            exit()
+        else:
+            #Para printar el grafico
+            for alto in range(self.heigth):
+                print("\n")
+                for ancho in range(self.width):
+                    if(self.grafico[alto][ancho]=="🟩 "):
+                        print(f"{self.grafico[alto][ancho]}", end=" ")
+                    elif(self.grafico[alto][ancho]=="🟥 "):
+                        print(f"{self.grafico[alto][ancho]}", end=" ")
+                    else:
+                        print(self.grafico[alto][ancho], end=" ")
+            print("\n")
 
     #Funcion para saber si los de alrededor estan vivas
     def comprobacion(self):
         nuevoGraf = np.full((self.heigth, self.width), fill_value="🟥 ")
         for alto in range(self.heigth):
-            #Para saber la cantidad de vivos alrededor
-            contador = 0
             for ancho in range(self.width):
-                print("Pos: ", alto, ancho)
+                contador=0
+                #print("Pos: ", alto, ancho)
+
                 #Comprobacion de la caja de arriba a la izquierda
                 if(ancho-1>=0):
                     if(alto-1>=0):
                         if(self.grafico[alto-1][ancho-1]=="🟩 "):
                             contador = contador + 1
-                            print("ArI VIVA")
+                            #print("ArI VIVA")
+                            #print(contador)
                         #print("Arriba izq, ancho:", ancho-1, "alto:", alto-1)
      
                 #Comprobacion arriba medio
                 if(alto-1>=0):
                     if(self.grafico[alto-1][ancho]=="🟩 "):
                         contador = contador + 1
-                        print("ArM VIVA")
+                        #print("ArM VIVA")
+                        #print(contador)
                     #print("Arriba med, ancho:", ancho, "alto:", alto+1)
     
                 #Comprobacion arriba derecha
@@ -81,21 +103,24 @@ class LifeGame:
                     if(alto-1>=0):
                         if(self.grafico[alto-1][ancho+1]=="🟩 "):
                             contador = contador + 1
-                            print("ArD VIVA")
+                            #print("ArD VIVA")
+                            #print(contador)
                         #print("Arriba der, ancho:", ancho+1, "alto:", alto-1)
 
                 #Comprobacion medio izquierda
                 if(ancho-1>=0):
                     if(self.grafico[alto][ancho-1]=="🟩 "):
                         contador = contador + 1
-                        print("MeI VIVA")
+                        #print("MeI VIVA")
+                        #print(contador)
                     #print("Medio izq, ancho:", ancho-1, "alto:", alto)
                         
                 #Comprobacion medio derecha
                 if(ancho+1<self.width):
                     if(self.grafico[alto][ancho+1]=="🟩 "):
                         contador = contador + 1
-                        print("MeD VIVA")
+                        #print("MeD VIVA")
+                        #print(contador)
                     #print("Medio der, ancho:", ancho+1, "alto:", alto)
                         
                 #Comprobacion de abajo izquierda
@@ -103,14 +128,16 @@ class LifeGame:
                     if(alto+1<self.heigth):
                         if(self.grafico[alto+1][ancho-1]=="🟩 "):
                             contador = contador + 1
-                            print("AbI VIVA")
+                            #print("AbI VIVA")
+                            #print(contador)
                         #print("Abajo izq, ancho:", ancho-1, "alto:", alto+1)
 
                 #Comprobacion abajo medio
                 if(alto+1<self.heigth):
                     if(self.grafico[alto+1][ancho]=="🟩 "):
                         contador = contador + 1
-                        print("AbM VIVA")
+                        #print("AbM VIVA")
+                        #print(contador)
                     #print("Abajo medio, ancho:", ancho, "alto:", alto+1)
 
                 #Comprobacion abajo derecha
@@ -118,23 +145,25 @@ class LifeGame:
                     if(alto+1<self.heigth):
                         if(self.grafico[alto+1][ancho+1]=="🟩 "):
                             contador = contador + 1
-                            print("AbD VIVA")
+                            #print("AbD VIVA")
+                            #print(contador)
                         #print("Abajo der, ancho:", ancho+1, "alto:", alto+1)  
 
-        #Si el bloque en el que estamos esta vivo
-        if(self.grafico[alto][ancho]=="🟩 "):
-            #Si tiene dos o menos vivas; o mas de tres, muere
-            if(contador<2 or contador>3):
-                nuevoGraf[alto][ancho]=="🟥 "
-        #Si el bloque en el que estamos esta muerto
-        elif(self.grafico[alto][ancho]=="🟥 "):
-            #Si tiene tres vivas, revive
-            if(contador==3):
-                nuevoGraf[alto][ancho]=="🟩 "
-            else:
-                nuevoGraf[alto][ancho]=="🟥 "
-        
-        self.grafico = nuevoGraf
+                
+                #Si el bloque en el que estamos esta vivo
+                if(self.grafico[alto][ancho]=="🟩 "):
+                    #Si tiene dos o menos vivas; o mas de tres, muere
+                    if(contador<2 or contador>3):
+                        #print("ha muerto")
+                        nuevoGraf[alto][ancho]="🟥 "
 
-        #Ponemos a 0 el contador para el siguiente bloque           
-        contador = 0
+                #Si el bloque en el que estamos esta muerto
+                if(self.grafico[alto][ancho]=="🟥 "):
+                    #Si tiene tres vivas, revive
+                    if(contador>=3):
+                        nuevoGraf[alto][ancho]="🟩 "
+
+        for alto in range(self.heigth):
+            for ancho in range(self.width):
+                self.antiguo[alto][ancho]=self.grafico[alto][ancho]
+                self.grafico[alto][ancho]=nuevoGraf[alto][ancho]
