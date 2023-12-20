@@ -2,24 +2,30 @@ import os
 import time
 import random
 import numpy as np
+import configparser
 
 #Funcion para limpiar la pantalla
 def clear(): return os.system('clear')
 clear()
 
+
 class Jugar:
+
     def __init__(self):
+        #Recogemos la configuracion
+        configuracion = configparser.ConfigParser()
+        configuracion.read('configuracion.ini')
+
         #Contador con las victorias del primer jugador
-        self.victorias1 = 0
+        self.victorias1 = configuracion['TresRaya']['Victorias1']
         #Contador con las victorias del segundo jugador
-        self.victorias2 = 0
+        self.victorias2 = configuracion['TresRaya']['Victorias2']
         #Para saber si hay que saltarse al primer jugador por texto incorrecto
-        self.paso1 = False
+        self.paso1 = configuracion['TresRaya']['Paso1']
         #Para saber si hay que saltarse al segundo jugador por texto incorrecto
-        self.paso2 = False
+        self.paso2 = configuracion['TresRaya']['Paso2']
         #Contador para la cantidad de tablas solicitadas
-        self.countTabla = 0
-        pass
+        self.countTabla = configuracion['TresRaya']['ContadorTablas']
 
 
 

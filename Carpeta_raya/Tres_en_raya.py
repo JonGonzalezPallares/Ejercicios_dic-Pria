@@ -1,6 +1,5 @@
 import os
 import time
-import numpy as np
 import Funcion_raya as funR
 
 #Funcion para limpiar la pantalla
@@ -9,6 +8,7 @@ clear()
 
 class inicio:
     def iniciar():
+        funR.Jugar
         #Array con diferentes posibilidades de aceptacion
         posibilidad = ["si", "true", "verdad", "vamos", "ok"]
 
@@ -48,5 +48,3 @@ class inicio:
             time.sleep(1)
             clear()
             exit()
-
-inicio.iniciar()

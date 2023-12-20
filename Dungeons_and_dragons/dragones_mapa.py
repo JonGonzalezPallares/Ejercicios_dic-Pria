@@ -1,16 +1,21 @@
 import numpy as np
 import random as rd
 import os
+import configparser
 
 def clear(): return os.system('clear')
 
 class MapGrid:
     def __init__(self):
-        self.width = 10
-        self.heigth = 10
-        self.dificil = 0
-        self.grafico = ""
-        self.dragon = 0
+        #Recogemos la configuracion
+        configuracion = configparser.ConfigParser()
+        configuracion.read('configuracion.ini')
+
+        self.width = configuracion['DragonesMazmorras']['AnchoMaz']
+        self.heigth = configuracion['DragonesMazmorras']['AltoMaz']
+        self.dificil = configuracion['DragonesMazmorras']['DificultazMaz']
+        self.grafico = configuracion['DragonesMazmorras']['GraficoMaz']
+        self.dragon = configuracion['DragonesMazmorras']['Dragon']
 
     #Funcion para generar el grafico por defecto
     def draw_grid(self):

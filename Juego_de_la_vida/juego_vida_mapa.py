@@ -1,15 +1,21 @@
 import os
 import numpy as np
 import random as rd
+import configparser
 
 def clear(): return os.system('clear')
 
 class LifeGame:
     def __init__(self):
-        self.width = 20
-        self.heigth = 20
-        self.grafico = 0
-        self.antiguo = 0
+        #Recogemos la configuracion
+        configuracion = configparser.ConfigParser()
+        configuracion.read('configuracion.ini')
+
+
+        self.width = configuracion['JuegoVida']['AnchoVida']
+        self.heigth = configuracion['JuegoVida']['AltoVida']
+        self.grafico = configuracion['JuegoVida']['GraficoVida']
+        self.antiguo = configuracion['JuegoVida']['AntiguoVida']
 
     #Funcion para generar el grafico
     def dib_grafico(self):
@@ -156,11 +162,13 @@ class LifeGame:
                     if(contador<2 or contador>3):
                         #print("ha muerto")
                         nuevoGraf[alto][ancho]="🟥 "
+                    else:
+                        nuevoGraf[alto][ancho]="🟩 "
 
                 #Si el bloque en el que estamos esta muerto
                 if(self.grafico[alto][ancho]=="🟥 "):
                     #Si tiene tres vivas, revive
-                    if(contador>=3):
+                    if(contador==3):
                         nuevoGraf[alto][ancho]="🟩 "
 
         for alto in range(self.heigth):
