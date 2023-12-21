@@ -19,16 +19,19 @@ def clear(): return os.system('clear')
 
 while intento:
     if(opcion.isdigit()):
-        if(opcion==1):
+        if(int(opcion)==1):
+            clear()
             intento = False
-            cr.inicio()
-        elif(opcion==2):
+            cr.inicio.iniciar()
+        elif(int(opcion)==2):
+            clear()
             intento = False
-            dd.inicio()
-        elif(opcion==3):
+            dd.inicio.iniciar()
+        elif(int(opcion)==3):
+            clear()
             intento = False
-            jv.inicio()
-        elif(opcion==0):
+            jv.inicio.iniciar()
+        elif(int(opcion)==0):
             intento = False
             clear()
             print("Adios")
@@ -40,6 +43,7 @@ while intento:
             print("2. Dragones y mazmorras")
             print("3. El juego de la vida")
             print("0. Salir")
+            opcion = input("Opcion: ")
     else:
         clear()
         print("Selecciona a que quieres jugar:")
@@ -47,3 +51,4 @@ while intento:
         print("2. Dragones y mazmorras")
         print("3. El juego de la vida")
         print("0. Salir")
+        opcion = input("Opcion: ")

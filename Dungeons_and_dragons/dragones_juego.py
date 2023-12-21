@@ -1,4 +1,4 @@
-import dragones_mapa as dm
+from Dungeons_and_dragons import dragones_mapa as dm
 import os
 import time
 

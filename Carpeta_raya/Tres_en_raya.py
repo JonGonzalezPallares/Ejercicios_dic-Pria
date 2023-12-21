@@ -1,6 +1,6 @@
 import os
 import time
-import Funcion_raya as funR
+import Carpeta_raya.Funcion_raya as funR
 
 #Funcion para limpiar la pantalla
 clear = lambda: os.system('clear')

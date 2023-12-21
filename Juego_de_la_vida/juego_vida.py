@@ -1,4 +1,4 @@
-import juego_vida_mapa as JV
+from Juego_de_la_vida import juego_vida_mapa as JV
 import os
 import time
 
