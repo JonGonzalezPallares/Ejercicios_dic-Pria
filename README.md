@@ -1,3 +1,6 @@
+# Funcionamiento inicial
+Para que se pueda arrancar hay que tener instalado numpy. Para poder instalarlo, si no está de antes, se puede ir a este enlace: [https://phoenixnap.com/kb/install-numpy](url)
+
 # Archivo => Inicio.py
 Para que se pueda jugar a cualquier juego, hay que arrancar este, ya que es un menu desde el que se puede acceder al resto de juegos. Si se intenta iniciar algun juego por si mismo no va a funcionar (seguramente)
 
